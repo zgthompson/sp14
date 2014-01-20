@@ -7,14 +7,14 @@ class Affine(Cipher):
         super(Affine, self).__init__(text)
 
     def decipher(self):
-        best_result = self.text
+        best_result = Text(self.text)
         # go through all possible affine alphabets
         for a in ( 1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25 ):
             for b in range(26):
                 cur_cipher = Text( self.encipher(a, b, inverse=True) )
 
                 # if cur_cipher looks more like english than best_result, it becomes the best_result
-                if cur_cipher.english_score > best_result.english_score:
+                if cur_cipher.english_words > best_result.english_words:
                     best_result = cur_cipher
 
         return str(best_result)
@@ -29,7 +29,7 @@ class Affine(Cipher):
 
         # convert each character in text to cipher character
         # ord('a') = 97
-        cipher = [ alphabet[ch] for ch in str(self.text) ]
+        cipher = [ alphabet[ch] for ch in self.text ]
 
         return "".join(cipher)
 

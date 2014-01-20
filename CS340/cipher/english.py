@@ -9,3 +9,4 @@ english_percent = [
 
 ENGLISH_FREQUENCY = { ch: english_percent[x] / 100 for x, ch in enumerate(ENGLISH_LETTERS) }
 
+ENGLISH_DICTIONARY = { word[:-2]: True for word in open("words_with_friends.txt", "r") }

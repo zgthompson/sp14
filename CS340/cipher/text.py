@@ -1,13 +1,34 @@
-from english import ENGLISH_LETTERS, ENGLISH_FREQUENCY
+from english import ENGLISH_LETTERS, ENGLISH_FREQUENCY, ENGLISH_DICTIONARY
 from math import sqrt
 
 class Text(object):
 
-
     def __init__(self, text):
-        self.text = self.only_letters(text)
-        self.frequency = self.calculate_frequency()
-        self.english_score = 1 / self.english_deviation()
+        self.text = Text.only_letters(text)
+        #self.frequency = self.calculate_frequency()
+        #self.english_score = 1 / self.english_deviation()
+        self.english_words = self.count_words()
+
+    def count_words(self):
+        count = 0
+        for word_size in (4, 5, 6):
+            for begin in range( len(self.text) - word_size ):
+                if self.text[begin:begin + word_size] in ENGLISH_DICTIONARY:
+                    count += 1
+        return count
+
+    @staticmethod
+    def only_letters(text):
+        # create dict for constant time lookup
+        lookup = { ch: True for ch in ENGLISH_LETTERS }
+
+        return "".join( [ ch for ch in text.lower() if ch in lookup ] )
+
+    def __str__(self):
+        return self.text
+
+    def __len__(self):
+        return len(self.text)
 
     def english_deviation(self):
         deviation = 0
@@ -15,13 +36,6 @@ class Text(object):
             deviation += (self.frequency[ch] - ENGLISH_FREQUENCY[ch])**2
 
         return sqrt( deviation / 26 )
-
-
-    def only_letters(self, text):
-        # create dict for constant time lookup
-        lookup = { ch: True for ch in ENGLISH_LETTERS }
-
-        return "".join( [ ch for ch in text.lower() if ch in lookup ] )
 
     def calculate_frequency(self):
         # a dictionary of all characters equal to 0
@@ -36,7 +50,3 @@ class Text(object):
 
         # frequency of each character
         return { ch: (count / total) for ch, count in ch_count.iteritems() }
-
-    def __str__(self):
-        return self.text
-
