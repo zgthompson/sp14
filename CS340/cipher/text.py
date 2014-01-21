@@ -9,6 +9,18 @@ class Text(object):
         #self.english_score = 1 / self.english_deviation()
         self.english_words = self.count_words()
 
+    @staticmethod
+    def split_words(text):
+        max_word = 28
+        if len(text) < 28:
+            max_word = len(text)
+
+        for word_size in reversed( range(1, max_word + 1) ):
+            for begin in range( len(text) - word_size + 1):
+                if text[begin: begin + word_size] in ENGLISH_DICTIONARY:
+                    return Text.split_words( text[:begin] ) + " " + text[begin: begin + word_size] + " " + Text.split_words(text[begin + word_size:])
+        return text
+        
     def count_words(self):
         count = 0
         for word_size in (4, 5, 6):
@@ -25,7 +37,7 @@ class Text(object):
         return "".join( [ ch for ch in text.lower() if ch in lookup ] )
 
     def __str__(self):
-        return self.text
+        return Text.split_words(self.text).strip().replace("  ", " ")
 
     def __len__(self):
         return len(self.text)
