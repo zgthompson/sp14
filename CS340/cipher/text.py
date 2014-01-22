@@ -23,11 +23,29 @@ class Text(object):
         
     def count_words(self):
         count = 0
-        for word_size in (4, 5, 6):
-            for begin in range( len(self.text) - word_size ):
-                if self.text[begin:begin + word_size] in ENGLISH_DICTIONARY:
+        end =  len(self.text) - 6
+        if end > 100:
+            end = 100
+            
+        # counts all 6 letter words in first 100 characters
+        for begin in range( end ):
+                if self.text[begin:begin + 6] in ENGLISH_DICTIONARY:
                     count += 1
         return count
+
+    """
+    @staticmethod
+    def get_best_match(text1, text2):
+        max_score = max(text1.english_score, text2.english_score)
+        english_score = (text1.english_score - text2.english_score) / max_score
+        max_words = max(text1.english_words, text2.english_words)
+        english_words = (text1.english_words - text2.english_words) / max_words
+
+        if (english_score + english_words) > 0:
+            return text1
+        else:
+            return text2
+    """
 
     @staticmethod
     def only_letters(text):
