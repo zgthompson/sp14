@@ -23,14 +23,15 @@ class Text(object):
         
     def count_words(self):
         count = 0
-        end =  len(self.text) - 6
+        end =  len(self.text)
         if end > 100:
             end = 100
             
-        # counts all 6 letter words in first 100 characters
-        for begin in range( end ):
-                if self.text[begin:begin + 6] in ENGLISH_DICTIONARY:
-                    count += 1
+        # counts all 4, 5, 6 letter words in first 100 characters
+        for word_size in (4, 5, 6):
+            for begin in range( end - word_size + 1 ):
+                    if self.text[begin:begin + word_size] in ENGLISH_DICTIONARY:
+                        count += 1
         return count
 
     """

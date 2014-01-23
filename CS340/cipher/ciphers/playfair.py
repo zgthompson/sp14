@@ -5,6 +5,7 @@ class Playfair(Cipher):
     def __init__(self, text, key):
         super(Playfair, self).__init__(text)
         self.key = self.create_key( Text.only_letters(key) )
+        self.text = self.text.replace('j', 'i')
 
     def decipher(self):
         best_result = Text(self.text)
