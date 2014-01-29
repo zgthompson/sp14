@@ -63,13 +63,6 @@ class SudukoSolver(object):
         return remaining
 
 
-
-
-
-
-
-
-
 def load_puzzle( puzzle ):
     result = [ [[] for c in range(9)] for r in range(9) ]
     try:
@@ -79,7 +72,7 @@ def load_puzzle( puzzle ):
         return None
     else:
         # read the first line except the \n character
-        state = f.readline()[:-1]
+        state = f.read().replace('\n', '').replace(' ', '')
         if len(state) is 81:
             try:
                 for pos, value in enumerate(state):
