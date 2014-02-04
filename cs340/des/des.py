@@ -2,6 +2,17 @@ from collections import deque
 
 class DES(object):
 
+    E = [
+            32, 1, 2, 3, 4, 5,
+            4, 5, 6, 7, 8, 9,
+            8, 9, 10, 11, 12, 13,
+            12, 13, 14, 15, 16, 17,
+            16, 17, 18, 19, 20, 21,
+            20, 21, 22, 23, 24, 25,
+            24, 25, 26, 27, 28, 29,
+            28, 29, 30, 31, 32, 1
+            ]
+
     PC1 = [
             57, 49, 41, 33, 25, 17, 9,
             1, 58, 50, 42, 34, 26, 18,
@@ -33,6 +44,17 @@ class DES(object):
             59, 51, 43, 35, 27, 19, 11, 3,
             61, 53, 45, 37, 29, 21, 13, 5,
             63, 55, 47, 39, 31, 23, 15, 7
+            ]
+
+    IPF = [
+            40, 8, 48, 16, 56, 24, 64, 32,
+            39, 7, 47, 15, 55, 23, 63, 31,
+            38, 6, 46, 14, 54, 22, 62, 30,
+            37, 5, 45, 13, 53, 21, 61, 29,
+            36, 4, 44, 12, 52, 20, 60, 28,
+            35, 3, 43, 11, 51, 19, 59, 27,
+            34, 2, 42, 10, 50, 18, 58, 26,
+            33, 1, 41, 9, 49, 17, 57, 25
             ]
 
     S1 = [
@@ -104,16 +126,64 @@ class DES(object):
             22, 11, 4, 25
             ]
 
-    def __init__(self, text, key):
-        self.text = list(DES.hex_to_binary(text))
-        self.key = list(DES.hex_to_binary(key))
+    def __init__(self, text, key, **kwargs):
+        if 'key_format' in kwargs:
+            if kwargs['key_format'] is 'binary':
+                self.key = list(key)
+            else:
+               raise Exception("Unrecognized key format") 
+        else:
+            self.key = list(DES.hex_to_binary(key))
+
+        if 'text_format' in kwargs: 
+            if kwargs['text_format'] is 'hex':
+                self.text = list(DES.hex_to_binary(text))
+            if kwargs['text_format'] is 'binary':
+                self.text = list(text)
+            else:
+                raise Exception("Unrecognized text format")
+        else:
+            self.text = list(DES.char_to_binary(text))
+
+    @staticmethod
+    def char_to_binary(key):
+        return ''.join([bin(ord(ch))[2:].zfill(8) for ch in key])
 
     @staticmethod
     def hex_to_binary(key):
         # covert to base 16 int, then to binary, then pad up to 64 bits
         return bin( int(key, 16) )[2:].zfill(64)
 
-    # create 16 48-bit subkeys based on the key
+    @staticmethod
+    def list_xor(list1, list2):
+        # xor the value of each index in list1 with the corresponding value in list2
+        return [ str((int(list1[i]) + int(list2[i])) % 2) for i in range( len(list1) ) ]
+
+    def encrypt(self):
+        subkeys = self.generate_subkeys()
+        initial = self.permute_initial()
+        l = initial[:32]
+        r = initial[32:]
+
+        for i in range(16):
+            expand_r = self.permute_expand(r)
+            sub_r = self.s_box_substitution(DES.list_xor(expand_r, subkeys[i]))
+            permute_r = self.permute_p(sub_r)
+            new_r = DES.list_xor(permute_r, l)
+
+            l = r
+            r = new_r
+        return ''.join(self.permute_final( r + l ))
+
+
+
+    # return result of expansion permutation on text
+    def permute_expand(self, text):
+        return [ text[i-1] for i in DES.E ]
+
+    def permute_final(self, final_text):
+        return [ final_text[ i - 1] for i in DES.IPF ]
+
     def permute_initial(self):
         # IP 1:64 corresponds to index 0:63
         return [ self.text[i - 1] for i in DES.IP ]
@@ -151,7 +221,7 @@ class DES(object):
             # take a chunk of 6 bits
             chunk = r[i:i+6]
             # binary to int of the first and last bit
-            row = chunk[0] * 2 + chunk[5]
+            row = int(chunk[0]) * 2 + int(chunk[5])
             #binary to int of the middle 4 bits
             col = int( ''.join(str(x) for x in chunk[1:5]), 2)
             # append s_box[row][col]
