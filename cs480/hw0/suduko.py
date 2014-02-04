@@ -5,30 +5,25 @@ class SudukoSolver(object):
     def __init__(self, grid):
         self.grid = grid
         self.grid_stack = [ grid ]
-        self.open_grid_set = set( [str(grid)] )
-        self.closed_grid_set = set()
+        self.node_counter = 0
 
     def solve(self):
         while self.grid_stack:
             self.grid = self.grid_stack.pop()
+            self.node_counter += 1
             row, col = self.first_zero()
             # Grid is full!
             if row is -1 and col is -1:
                 return self.grid
             else:
+                # adds new grids to stack in ascending order
                 for value in self.candidates(row, col):
+                    # create copy of the grid
                     new_grid = deepcopy(self.grid)
+                    # insert next move
                     new_grid[row][col] = value
-                    new_grid_string = str(new_grid)
-
-                    if new_grid_string not in self.open_grid_set and new_grid_string not in self.closed_grid_set:
-                        self.open_grid_set.add(new_grid_string)
-                        self.grid_stack.append(new_grid)
-
-                # add grid string to closed set and remove from open set
-                grid_string = str(self.grid)
-                self.closed_grid_set.add( grid_string )
-                self.open_grid_set.remove( grid_string )
+                    # add this new board to the stack
+                    self.grid_stack.append(new_grid)
         return None
 
 
@@ -39,10 +34,10 @@ class SudukoSolver(object):
             for col in range(9):
                 if self.grid[row][col] is 0:
                     return (row, col)
-    # no 0 found
+    # no empty space found
         return (-1, -1)
 
-    # given an empty space, returns all legal moves
+    # given an empty space, returns all legal moves in descending order
     def candidates(self, row, col):
         remaining = set( range(1, 10) )
 
@@ -60,7 +55,7 @@ class SudukoSolver(object):
             for block_col in range( block_col_start, block_col_start + 3):
                 remaining.discard( self.grid[block_row][block_col] )
 
-        return remaining
+        return sorted(remaining)
 
 
 def load_puzzle( puzzle ):
@@ -104,8 +99,11 @@ def main():
     solution = solver.solve()
 
     if solution:
-        print solution
+        for row in solution:
+            print row
     else:
         print "No solution"
+
+    print "Nodes visited: " + str(solver.node_counter)
 
 main()
