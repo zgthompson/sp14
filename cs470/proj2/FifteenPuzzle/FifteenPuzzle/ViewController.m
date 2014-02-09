@@ -47,7 +47,7 @@
 
 @property (weak, nonatomic) IBOutlet UISlider *shuffleSlider;
 
-@property (nonatomic) BOOL busy;
+@property (nonatomic) int busy;
 @end
 
 @implementation ViewController
@@ -107,7 +107,7 @@
     if (self.busy) {
         return;
     }
-    
+
     if (sender.direction == UISwipeGestureRecognizerDirectionLeft) {
         [self makeLeftMoveIfValid];
     }
@@ -285,9 +285,7 @@
 
 - (IBAction)shuffleBoard:(UIButton *)sender
 {
-    [self setBusy:YES];
     [self shuffleBoardHelper];
-    [self setBusy:NO];
 }
 
 -(void)shuffleBoardHelper
@@ -297,6 +295,8 @@
         return;
     }
     else {
+        // add a task to the busy list
+        self.busy++;
         
         int posToMove = [self posOfRandomNonBackwardsNeighborToBlank];
 
@@ -316,8 +316,13 @@
             // update internal representation
             [self updateBoardAfterBlankToPos:posToMove];
             
+            // task complete, remove from busy
+            self.busy--;
+            
             // animate the next move
             [self shuffleBoardHelper];
+            
+            
         }];
         
     }
