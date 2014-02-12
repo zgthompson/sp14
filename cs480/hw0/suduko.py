@@ -11,7 +11,7 @@ class SudukoSolver(object):
         while self.grid_stack:
             self.grid = self.grid_stack.pop()
             self.node_counter += 1
-            row, col = self.first_zero()
+            row, col = self.best_zero()
             # Grid is full!
             if row is -1 and col is -1:
                 return self.grid
@@ -26,6 +26,22 @@ class SudukoSolver(object):
                     self.grid_stack.append(new_grid)
         return None
 
+
+
+    # returns the empty space with the least amount of options
+    def best_zero(self):
+
+        min_options = 10
+        min_coords = (-1, -1)
+
+        for row in range(9):
+            for col in range(9):
+                if self.grid[row][col] is 0:
+                    cur_options= len(self.candidates(row, col))
+                    if cur_options < min_options:
+                        min_options = cur_options
+                        min_coords = (row, col)
+        return min_coords
 
 
     # returns the first empty space going left to right, up to down

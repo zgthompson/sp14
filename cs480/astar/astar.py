@@ -10,73 +10,122 @@ class AStar(object):
         Initializes the AStar object and sets function that determines the
         order in which the nodes are evaluated.
         """
-        if AStarObject not in root_node.__class__.__bases__:
+        if AStarNode not in root_node.__class__.__bases__:
             raise TypeError( "Argument must be a subclass of AStarObject" )
-
-        self._fringe = BinarySearchTree( root_node.__class__.total_estimated_cost )
-        self._fringe.insert( root_node )
 
         self._goal_node = goal_node
 
+        # set the goal node
+        root_node.set_goal(goal_node)
+
+        # binary search tree for finding minimum cost efficiently
+        self._fringe = BinarySearchTree( self._sort_value )
+        self._fringe.insert( root_node )
+
+        # set of already visited nodes for efficient membership lookup
+        self._visited = set()
+
     def search(self):
         """
-        Return the length of the shortest path from the start node to the goal
-        node. Returns -1 if there is no path.
+        Returns a list that contains the nodes of the shortest path to the goal,
+        starting with the root node and ending with the goal node. Will return
+        None if there is no solution.
         """
         while self._fringe:
-
             # grabs the best candidate so far
             node = self._fringe.pop_min()
+            # add node to list of visited nodes
 
-            if self._is_goal_node(node):
-                return node.cost_from_root()
-            else:
-                self._add_children_to_fringe(node)
+            if hash(node) not in self._visited:
+                if node.is_goal():
+                    return node.path_to_goal()
+                else:
+                    self._add_children_to_fringe(node)
+                    self._visited.add( hash(node) )
         # no path was found
-        return -1
+        return None
 
-    def _is_goal_node(self, node):
-        """
-        Returns True if node and goal_node are the same and False otherwise
-        """
-        return str(node) is str(self._goal_node)
+    def _sort_value(node):
+        return node.total_cost()
 
     def _add_children_to_fringe(node):
         """
         Adds all children of node to the fringe
         """
-        for child in node.get_children():
+        for child in node.children():
             self._fringe.insert( child )
 
-class AStarObject(object):
+class AStarNode(object):
     """
-    An object to use with the AStar search class. It must implement the class method
-    total_estimated_cost(node) and the instance methods get_children()
+    An object to use with the AStar search class. It must implement the methods
+    _total_estimated_cost() and children()
     """
-    @staticmethod
-    def total_estimated_cost(node):
-        """
-        Returns the sum of the distance from the root and the estimated
-        distance to the goal
-        """
-        return node.cost_from_root() + node.estimated_cost_to_goal()
 
-    def estimated_cost_to_goal():
-        """
-        Returns the estimated cost to reach the goal node from this node
-        """
-        raise NotImplementedError
+    def __init__(self, state, cost_so_far=0, parent_node=None):
+        self._state = state
+        self._cost = cost_so_far
+        self._parent = parent_node
+        if parent_node:
+            self._goal = parent_node._goal
+            self._heuristic_cost = self._estimated_cost_to_goal()
+        else:
+            self._heuristic_cost = 0
 
-    def cost_from_root(self):
+    def set_goal(self, goal_node):
         """
-        Returns the total cost incurred so far to get to this node
-        from the root node
+        Set the goal node explicitly, this is used for the starting node, all
+        the children nodes will inherit the goal from their parent
         """
-        raise NotImplementedError
+        self._goal = goal_node
+        self._heuristic_cost = self._estimated_cost_to_goal()
 
-    def get_children(self):
+    def total_cost(self):
+        """
+        Return the sum of the cost incurred and the estimated cost remaining
+        """
+        return self._cost + self._heuristic_cost
+
+    def children(self):
         """
         Returns an iterator of all the states reachable from the current
         state
         """
         raise NotImplementedError
+
+    def is_goal(self):
+        """
+        Returns true if this node is same as the goal node
+        """
+        return str(self._state) == str(self._goal._state)
+
+    def path_to_goal(self):
+        """
+        Returns a list containing all the states starting from the root and
+        ending at the current node
+        """
+        if self._parent:
+            path = self._parent.path_to_goal()
+            path.append(self._state)
+            return path
+        else:
+            return [ self._state ]
+
+    def __hash__(self):
+        """
+        Return a hashable representation of AStarObject
+        """
+        return hash( str(self._state) )
+
+    def __str__(self):
+        """
+        Return the string representation of the state
+        """
+        return str(self._state)
+
+    def _estimated_cost_to_goal(self):
+        """
+        Returns the estimated cost to reach the goal node from this node
+        """
+        raise NotImplementedError
+
+    

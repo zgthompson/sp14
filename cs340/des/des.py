@@ -146,6 +146,11 @@ class DES(object):
             self.text = list(DES.char_to_binary(text))
 
     @staticmethod
+    def binary_to_hex(key):
+        group_in_fours = [ int( ''.join(key[x:x+4]), 2) for x in range( 0, len(key), 4 ) ]
+        return ''.join([ hex(x)[2:] for x in group_in_fours ]).upper()
+
+    @staticmethod
     def char_to_binary(key):
         return ''.join([bin(ord(ch))[2:].zfill(8) for ch in key])
 
