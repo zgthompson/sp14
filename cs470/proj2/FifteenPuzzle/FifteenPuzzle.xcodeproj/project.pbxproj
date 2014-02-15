@@ -23,6 +23,7 @@
 		3F2BFEB018A6C75A000C8240 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F2BFE8B18A6C75A000C8240 /* Foundation.framework */; };
 		3F2BFEB818A6C75A000C8240 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F2BFEB618A6C75A000C8240 /* InfoPlist.strings */; };
 		3F2BFEBB18A6C75A000C8240 /* FifteenPuzzleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F2BFEBA18A6C75A000C8240 /* FifteenPuzzleTests.m */; };
+		3F4E527918B000BA00A7C736 /* PuzzleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E527818B000BA00A7C736 /* PuzzleModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		3F2BFEB718A6C75A000C8240 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3F2BFEB918A6C75A000C8240 /* FifteenPuzzleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FifteenPuzzleTests.h; sourceTree = "<group>"; };
 		3F2BFEBA18A6C75A000C8240 /* FifteenPuzzleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FifteenPuzzleTests.m; sourceTree = "<group>"; };
+		3F4E527718B000BA00A7C736 /* PuzzleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PuzzleModel.h; sourceTree = "<group>"; };
+		3F4E527818B000BA00A7C736 /* PuzzleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PuzzleModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				3F2BFE9818A6C75A000C8240 /* AppDelegate.h */,
+				3F4E527718B000BA00A7C736 /* PuzzleModel.h */,
+				3F4E527818B000BA00A7C736 /* PuzzleModel.m */,
 				3F2BFE9918A6C75A000C8240 /* AppDelegate.m */,
 				3F2BFEA118A6C75A000C8240 /* MainStoryboard.storyboard */,
 				3F2BFEA418A6C75A000C8240 /* ViewController.h */,
@@ -273,6 +278,7 @@
 				3F2BFE9618A6C75A000C8240 /* main.m in Sources */,
 				3F2BFE9A18A6C75A000C8240 /* AppDelegate.m in Sources */,
 				3F2BFEA618A6C75A000C8240 /* ViewController.m in Sources */,
+				3F4E527918B000BA00A7C736 /* PuzzleModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +459,7 @@
 				3F2BFEC018A6C75A000C8240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F2BFEC118A6C75A000C8240 /* Build configuration list for PBXNativeTarget "FifteenPuzzleTests" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +468,7 @@
 				3F2BFEC318A6C75A000C8240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
