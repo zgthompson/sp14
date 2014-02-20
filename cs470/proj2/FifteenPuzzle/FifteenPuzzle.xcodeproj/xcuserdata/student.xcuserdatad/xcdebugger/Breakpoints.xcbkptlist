@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "FifteenPuzzle/ViewController.m"
-         timestampString = "413593161.838588"
+         timestampString = "414191438.155461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "24"
-         endingLineNumber = "24"
+         startingLineNumber = "27"
+         endingLineNumber = "27"
          landmarkName = "button11"
          landmarkType = "19">
       </FileBreakpoint>
@@ -21,13 +21,26 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "FifteenPuzzle/ViewController.m"
-         timestampString = "413593530.641378"
+         timestampString = "414191438.155461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "28"
-         endingLineNumber = "28"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
          landmarkName = "button15"
          landmarkType = "19">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FifteenPuzzle/PuzzleModel.m"
+         timestampString = "414198537.902019"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "234"
+         endingLineNumber = "234"
+         landmarkName = "-moveBlankToPos:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
