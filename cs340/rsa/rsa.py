@@ -7,10 +7,10 @@ import operator
 def top_x_pairs(x):
     sorted_pairs = pickle.load( open('sorted_pairs.p', 'rb') )
 
-    print "%s %9s" % ('appearances', 'e,d')
-    print '-'*21
+    print "%5s%17s" % ('e,d', 'appearances')
+    print '-'*22
     for pair, amount in sorted_pairs[:x]:
-        print "%5s %15s" % (str(amount), pair)
+        print "  %-9s    %-4d" % (pair, amount)
 
 def store_sorted_pairs():
     key_pairs = pickle.load( open('key_pairs_no_dupes.p', 'rb') )
@@ -75,4 +75,4 @@ class RSA(object):
                 return i
         return None
 
-top_x_pairs(20)
+top_x_pairs(40)
