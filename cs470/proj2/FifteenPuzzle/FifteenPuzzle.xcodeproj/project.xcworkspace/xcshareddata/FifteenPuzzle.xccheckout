@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3CC8E3D0-9F35-4F40-9A29-699312A6D4D0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FifteenPuzzle</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2ADC9D31-9804-4C70-8D65-32AEB81646D2</key>
+		<string>https://github.com/zgthompson/sp14.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cs470/proj2/FifteenPuzzle/FifteenPuzzle.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2ADC9D31-9804-4C70-8D65-32AEB81646D2</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/zgthompson/sp14.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2ADC9D31-9804-4C70-8D65-32AEB81646D2</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2ADC9D31-9804-4C70-8D65-32AEB81646D2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>sp14</string>
+		</dict>
+	</array>
+</dict>
+</plist>
