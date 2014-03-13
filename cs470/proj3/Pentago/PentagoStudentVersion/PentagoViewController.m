@@ -2,8 +2,7 @@
 //  PentagoViewController.m
 //  PentagoStudentVersion
 //
-//  Created by AAK on 2/17/14.
-//  Copyright (c) 2014 Ali Kooshesh. All rights reserved.
+// Zachary Thompson
 //
 
 #import "PentagoViewController.h"
@@ -34,6 +33,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(onPentagoWinner:) name:@"PentagoWinner" object:nil];
+    
     [self.view setBackgroundColor:[UIColor blackColor]];
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
     [self.view setFrame:frame];
@@ -47,6 +50,17 @@
         [self.subViewControllers addObject: p];
         [self.view addSubview: p.view];
     }
+}
+
+- (void) onPentagoWinner:(NSNotification *) notification
+{
+    NSString *winner = [notification object];
+    NSString *labelText = [NSString stringWithFormat:@"%@ wins!", winner];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 200, 40)];
+    [label setText:labelText];
+    [label setTextColor:[UIColor whiteColor]];
+    [self.view addSubview:label];
 }
 
 - (void)didReceiveMemoryWarning

@@ -2,8 +2,7 @@
 //  PentagoSubBoardViewController.m
 //  PentagoStudentVersion
 //
-//  Created by AAK on 2/17/14.
-//  Copyright (c) 2014 Ali Kooshesh. All rights reserved.
+//  Zachary Thompson
 //
 
 #import "PentagoSubBoardViewController.h"
@@ -31,63 +30,23 @@ const int TOP_MARGIN = 50;
 
 @implementation PentagoSubBoardViewController
 
--(UISwipeGestureRecognizer *) leftSwipe
+- (void)viewDidLoad
 {
-    if( !_leftSwipe) {
-        _leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(madeSwipe:)];
-        [_leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
-    }
+    [super viewDidLoad];
+    CGRect ivFrame = CGRectMake(0, 0, widthOfSubsquare, widthOfSubsquare);
+    self.gridImageView.frame = ivFrame;
+    UIImage *image = [UIImage imageNamed:@"grid.png"];
+    [self.gridImageView setImage:image];
+    [self.view addSubview:self.gridImageView];
+    [self.view addGestureRecognizer: self.tapGest];
+    [self.view addGestureRecognizer:self.leftSwipe];
+    [self.view addGestureRecognizer:self.rightSwipe];
+    [self.view setBackgroundColor:[UIColor blackColor]];
     
-    return _leftSwipe;
-}
-
--(UISwipeGestureRecognizer *) rightSwipe
-{
-    if( !_rightSwipe) {
-        _rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(madeSwipe:)];
-        [_rightSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
-    }
-    
-    return _rightSwipe;
-}
-
--(void) madeSwipe: (UISwipeGestureRecognizer *) swipeObject {
-    CGPoint p = [swipeObject locationInView:self.view];
-    
-    if (p.y >= widthOfSubsquare || p.x >= widthOfSubsquare) return;
-    
-    if (swipeObject.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [self doRotationInDirection:-1];
-    }
-    else if (swipeObject.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self doRotationInDirection:1];
-    }
-}
-
--(void) doRotationInDirection:(int) direction
-{
-    if ([self.pBrain makeRotationIfValidOnBoard:subsquareNumber inDirection:direction]) {
-        CGAffineTransform curTransform = self.gridImageView.layer.affineTransform;
-        [UIView animateWithDuration:1 animations:^{
-            CGAffineTransform newTransform = CGAffineTransformConcat(curTransform, CGAffineTransformMakeRotation((direction * M_PI)/2));
-            self.gridImageView.layer.affineTransform = newTransform;
-        }];
-        
-        self.curOrientation -= (direction * M_PI) / 2;
-    }
-}
-
-
--(UITapGestureRecognizer *) tapGest
-{
-    if( ! _tapGest ) {
-        _tapGest = [[UITapGestureRecognizer alloc]
-                    initWithTarget:self action:@selector(didTapTheView:)];
-        
-        [_tapGest setNumberOfTapsRequired:1];
-        [_tapGest setNumberOfTouchesRequired:1];
-    }
-    return _tapGest;
+    CGRect viewFrame = CGRectMake( (BORDER_WIDTH + widthOfSubsquare) * (subsquareNumber % 2) + BORDER_WIDTH,
+                                  (BORDER_WIDTH + widthOfSubsquare) * (subsquareNumber / 2) + BORDER_WIDTH + TOP_MARGIN,
+                                  widthOfSubsquare, widthOfSubsquare);
+    self.view.frame = viewFrame;
 }
 
 -(PentagoBrain *) pBrain
@@ -119,6 +78,67 @@ const int TOP_MARGIN = 50;
     return self;
 }
 
+# pragma mark - Event handlers
+
+-(UISwipeGestureRecognizer *) leftSwipe
+{
+    if( !_leftSwipe) {
+        _leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(madeSwipe:)];
+        [_leftSwipe setDirection:UISwipeGestureRecognizerDirectionLeft];
+    }
+    
+    return _leftSwipe;
+}
+
+-(UISwipeGestureRecognizer *) rightSwipe
+{
+    if( !_rightSwipe) {
+        _rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(madeSwipe:)];
+        [_rightSwipe setDirection:UISwipeGestureRecognizerDirectionRight];
+    }
+    
+    return _rightSwipe;
+}
+
+-(UITapGestureRecognizer *) tapGest
+{
+    if( ! _tapGest ) {
+        _tapGest = [[UITapGestureRecognizer alloc]
+                    initWithTarget:self action:@selector(didTapTheView:)];
+        
+        [_tapGest setNumberOfTapsRequired:1];
+        [_tapGest setNumberOfTouchesRequired:1];
+    }
+    return _tapGest;
+}
+
+# pragma mark - Event callbacks
+
+-(void) madeSwipe: (UISwipeGestureRecognizer *) swipeObject {
+    CGPoint p = [swipeObject locationInView:self.view];
+    
+    if (p.y >= widthOfSubsquare || p.x >= widthOfSubsquare) return;
+    
+    if (swipeObject.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self doRotationInDirection:-1];
+    }
+    else if (swipeObject.direction == UISwipeGestureRecognizerDirectionRight) {
+        [self doRotationInDirection:1];
+    }
+}
+
+-(void) doRotationInDirection:(int) direction
+{
+    if ([self.pBrain makeRotationIfValidOnBoard:subsquareNumber inDirection:direction]) {
+        CGAffineTransform curTransform = self.gridImageView.layer.affineTransform;
+        [UIView animateWithDuration:1 animations:^{
+            CGAffineTransform newTransform = CGAffineTransformConcat(curTransform, CGAffineTransformMakeRotation((direction * M_PI)/2));
+            self.gridImageView.layer.affineTransform = newTransform;
+        }];
+        
+        self.curOrientation -= (direction * M_PI) / 2;
+    }
+}
 
 -(void) didTapTheView: (UITapGestureRecognizer *) tapObject
 {
@@ -135,10 +155,10 @@ const int TOP_MARGIN = 50;
     int col = p.x / squareWidth;
     
     if ([self.pBrain makeMoveIfValidOnBoard:subsquareNumber atRow:row andCol:col]) {
-    
+        
         // The board is divided into nine equally sized squares and thus width = height.
         NSString *imageName = [self.pBrain isPlayer1Turn] ? @"redMarble.png" : @"greenMarble.png";
-    
+        
         UIImageView *iView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         iView.frame = CGRectMake(col * squareWidth,
                                  row * squareWidth,
@@ -152,32 +172,6 @@ const int TOP_MARGIN = 50;
         
         [self.gridImageView.layer addSublayer:ballLayer];
     }
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    CGRect ivFrame = CGRectMake(0, 0, widthOfSubsquare, widthOfSubsquare);
-    self.gridImageView.frame = ivFrame;
-    UIImage *image = [UIImage imageNamed:@"grid.png"];
-    [self.gridImageView setImage:image];
-    [self.view addSubview:self.gridImageView];
-    [self.view addGestureRecognizer: self.tapGest];
-    [self.view addGestureRecognizer:self.leftSwipe];
-    [self.view addGestureRecognizer:self.rightSwipe];
-    [self.view setBackgroundColor:[UIColor blackColor]];
-
-    CGRect viewFrame = CGRectMake( (BORDER_WIDTH + widthOfSubsquare) * (subsquareNumber % 2) + BORDER_WIDTH,
-                                  (BORDER_WIDTH + widthOfSubsquare) * (subsquareNumber / 2) + BORDER_WIDTH + TOP_MARGIN,
-                                  widthOfSubsquare, widthOfSubsquare);
-    self.view.frame = viewFrame;
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
