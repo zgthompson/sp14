@@ -13,7 +13,7 @@ def top_x_pairs(x):
         print "  %-9s    %-4d" % (pair, amount)
 
 def store_sorted_pairs():
-    key_pairs = pickle.load( open('key_pairs_no_dupes.p', 'rb') )
+    key_pairs = pickle.load( open('key_pairs_final.p', 'rb') )
     key_dict = dict()
     for key1, key2 in key_pairs:
         str1 = str(key1) + ',' + str(key2)
@@ -33,6 +33,13 @@ def calculate_all_pairs():
         key_pairs += rsa.all_possible_keys()
 
     pickle.dump(key_pairs, open('key_pairs.p', 'wb'))
+
+def remove_e_equals_d():
+    key_pairs = pickle.load( open('key_pairs_no_dupes.p', 'rb') )
+
+    no_e_equals_d = [(key1, key2) for key1, key2 in key_pairs if key1 != key2]
+
+    pickle.dump(no_e_equals_d, open('key_pairs_final.p', 'wb'))
 
 def remove_duplicates():
     key_pairs = pickle.load( open('key_pairs.p', 'rb') )
