@@ -9,7 +9,8 @@ class PermutationAStar(AStar):
         for i in range( len(node) - 1):
             if abs( node[i] - node[i+1] ) != 1: 
                 score += 1
-        return score / 2
+        return score / 2.0
+
 
 
     def children(self, node):

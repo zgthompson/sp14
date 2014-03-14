@@ -21,7 +21,7 @@ public class PermutationAStar extends AStar {
                 ++score;
             }
         }
-        return score;
+        return score / 2;
     }
 
     @SuppressWarnings("unchecked")
@@ -47,7 +47,7 @@ public class PermutationAStar extends AStar {
 
     public static void main(String[] args) {
         List<Integer> goalNode = new ArrayList<Integer>();
-        for (int i = 0; i < 22; ++i) {
+        for (int i = 0; i < 10; ++i) {
             goalNode.add(i);
         }
 

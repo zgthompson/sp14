@@ -3,13 +3,13 @@ from permutation_astar import *
 import random
 import time
 
-perm_size = 4
+perm_size = 10
 
-start_node = range(1, perm_size+1)
-random.shuffle(start_node)
+#start_node = range(1, perm_size+1)
+#random.shuffle(start_node)
 
 # test 1
-# start_node = [1, 10, 2, 9, 3, 8, 4, 7, 5, 6]
+start_node = [1, 10, 2, 9, 3, 8, 4, 7, 5, 6]
 
 #test 2
 #start_node = [10, 9, 11, 13, 8, 1, 6, 3, 2, 5, 12, 4, 7]
