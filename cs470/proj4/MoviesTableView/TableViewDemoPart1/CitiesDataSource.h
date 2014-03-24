@@ -14,5 +14,6 @@
 
 -(instancetype) initWithJSONArray:(NSArray *) jsonArray;
 -(NSArray *) getAllCities;
+-(int) numberOfCities;
 
 @end

@@ -24,6 +24,7 @@
 -(NSString *) theaterBarButtonItemBackButtonTitle;
 -(BOOL) deleteTheaterAtIndex: (NSInteger) idx;
 -(void) print;
+//-(NSArray *) theatersWithCityName: (NSString *) cityName;
 
 
 @end

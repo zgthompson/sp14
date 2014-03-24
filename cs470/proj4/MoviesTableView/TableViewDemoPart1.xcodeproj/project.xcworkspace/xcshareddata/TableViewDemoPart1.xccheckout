@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C27F072C-855B-49C1-BC7B-51C6A431096D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TableViewDemoPart1</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7BDB32E5-2939-4E44-8194-1498C39104CE</key>
+		<string>https://github.com/zgthompson/sp14.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cs470/proj4/MoviesTableView/TableViewDemoPart1.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7BDB32E5-2939-4E44-8194-1498C39104CE</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/zgthompson/sp14.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7BDB32E5-2939-4E44-8194-1498C39104CE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7BDB32E5-2939-4E44-8194-1498C39104CE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>sp14</string>
+		</dict>
+	</array>
+</dict>
+</plist>

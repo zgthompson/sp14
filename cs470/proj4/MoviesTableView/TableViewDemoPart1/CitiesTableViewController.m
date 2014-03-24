@@ -7,10 +7,17 @@
 //
 
 #import "CitiesTableViewController.h"
+#import "SchemaDataSource.h"
 
 @interface CitiesTableViewController ()
 
+@property (nonatomic) SchemaDataSource *dataSource;
+@property (nonatomic) CitiesDataSource *citiesDataSource;
+@property (nonatomic) UIActivityIndicatorView *activityIndicator;
+
 @end
+
+static NSString *CellIdentifier = @"Cell";
 
 @implementation CitiesTableViewController
 
@@ -18,7 +25,10 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        UIImage *tabImage = [UIImage imageNamed:@"cityTabBarImage.jpg"];
+        self.tabBarItem.image = tabImage;
+        self.title = @"City";
+        [[SchemaDataSource sharedInstance] addObserver:self forKeyPath:@"dataSourceReady" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return self;
 }
@@ -26,12 +36,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
+    
+    self.dataSource = [SchemaDataSource sharedInstance];
+    
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(refrechTableView:) forControlEvents:UIControlEventValueChanged];
+    
+    _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicator setCenter:self.view.center];
+    [self.view addSubview:self.activityIndicator];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,18 +55,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    self.citiesDataSource = [[SchemaDataSource sharedInstance] citiesDataSource];
+    [self.tableView reloadData];
+    [self.activityIndicator stopAnimating];
+}
+
+-(void) refreshTableView: (UIRefreshControl *) rControl
+{
+    if ( [self.dataSource dataSourceReady] ) {
+        [self.tableView reloadData];
+    }
+    [rControl endRefreshing];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return [self.citiesDataSource numberOfCities];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 0;
 }

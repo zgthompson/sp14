@@ -36,6 +36,9 @@
     return self.allCities;
 }
 
-
+-(int) numberOfCities
+{
+    return [self.allCities count];
+}
 
 @end
