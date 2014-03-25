@@ -39,6 +39,8 @@
 		3F6B7D2618E0C5BE009BCFCC /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B7D2518E0C5BE009BCFCC /* City.m */; };
 		3F6B7D2918E0C6D0009BCFCC /* CitiesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B7D2818E0C6D0009BCFCC /* CitiesDataSource.m */; };
 		3F6B7D2C18E0CCB1009BCFCC /* CitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6B7D2B18E0CCB1009BCFCC /* CitiesTableViewController.m */; };
+		3FFCB32918E1D835004E15CF /* cityTabBarImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FFCB32818E1D835004E15CF /* cityTabBarImage.png */; };
+		3FFCB32C18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCB32B18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,9 @@
 		3F6B7D2818E0C6D0009BCFCC /* CitiesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitiesDataSource.m; sourceTree = "<group>"; };
 		3F6B7D2A18E0CCB1009BCFCC /* CitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitiesTableViewController.h; sourceTree = "<group>"; };
 		3F6B7D2B18E0CCB1009BCFCC /* CitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitiesTableViewController.m; sourceTree = "<group>"; };
+		3FFCB32818E1D835004E15CF /* cityTabBarImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cityTabBarImage.png; sourceTree = "<group>"; };
+		3FFCB32A18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesAtTheaterTableViewController.h; sourceTree = "<group>"; };
+		3FFCB32B18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviesAtTheaterTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +192,7 @@
 		3E3C327E18CA77B800D5500E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3FFCB32818E1D835004E15CF /* cityTabBarImage.png */,
 				3E3C32F818CE846C00D5500E /* movieTheaterTabBarImage.png */,
 				3E3C32F618CE844C00D5500E /* movieTabBarImage.png */,
 				3E3C327F18CA77B800D5500E /* TableViewDemoPart1-Info.plist */,
@@ -261,6 +267,8 @@
 				3E3C32D518CD7CC400D5500E /* MovieAtTheater.m */,
 				3E3C32D718CD7EF200D5500E /* MoviesAtTheatersDataSource.h */,
 				3E3C32D818CD7EF200D5500E /* MoviesAtTheatersDataSource.m */,
+				3FFCB32A18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.h */,
+				3FFCB32B18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.m */,
 			);
 			name = moviesAtTheaters;
 			sourceTree = "<group>";
@@ -356,6 +364,7 @@
 			files = (
 				3E3C329018CA77B800D5500E /* Images.xcassets in Resources */,
 				3E3C32F918CE846C00D5500E /* movieTheaterTabBarImage.png in Resources */,
+				3FFCB32918E1D835004E15CF /* cityTabBarImage.png in Resources */,
 				3E3C328218CA77B800D5500E /* InfoPlist.strings in Resources */,
 				3E3C32F718CE844C00D5500E /* movieTabBarImage.png in Resources */,
 				3E3C328B18CA77B800D5500E /* Main.storyboard in Resources */,
@@ -380,6 +389,7 @@
 				3F6B7D2618E0C5BE009BCFCC /* City.m in Sources */,
 				3E3C32D918CD7EF200D5500E /* MoviesAtTheatersDataSource.m in Sources */,
 				3E3C328E18CA77B800D5500E /* ViewController.m in Sources */,
+				3FFCB32C18E1DB0F004E15CF /* MoviesAtTheaterTableViewController.m in Sources */,
 				3E3C32BA18CBBAE600D5500E /* Theater.m in Sources */,
 				3F6B7D2218E0B833009BCFCC /* DetailedMovieViewController.m in Sources */,
 				3E3C328818CA77B800D5500E /* AppDelegate.m in Sources */,

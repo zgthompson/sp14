@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "City.h"
 
 @interface CitiesDataSource : NSObject
 
@@ -15,5 +16,6 @@
 -(instancetype) initWithJSONArray:(NSArray *) jsonArray;
 -(NSArray *) getAllCities;
 -(int) numberOfCities;
+-(City *) cityAtIndex:(int) index;
 
 @end

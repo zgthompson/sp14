@@ -11,6 +11,7 @@
 #import "MoviesDataSource.h"
 #import "MoviesTableViewController.h"
 #import "TheatersTableViewController.h"
+#import "CitiesTableViewController.h"
 
 @interface AppDelegate()
 
@@ -27,10 +28,10 @@
 
     MoviesTableViewController *mtvc = [[MoviesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     TheatersTableViewController *ttvc = [[TheatersTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ttvc];
+    CitiesTableViewController *ctvc = [[CitiesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     UITabBarController *tbc = [[UITabBarController alloc] init];
-    [tbc setViewControllers:[NSArray arrayWithObjects:ttvc, mtvc, nil ]];
+    [tbc setViewControllers:[NSArray arrayWithObjects:mtvc, ttvc, ctvc, nil ]];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tbc];
     

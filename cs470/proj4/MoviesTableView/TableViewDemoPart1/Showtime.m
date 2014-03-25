@@ -37,7 +37,7 @@
 
 - (NSString *) movieName
 {
-    return [self.showtimeAttrs objectForKey:@"movieName"];
+    return [self.showtimeAttrs objectForKey:@"movieTitle"];
 }
 
 - (void) print

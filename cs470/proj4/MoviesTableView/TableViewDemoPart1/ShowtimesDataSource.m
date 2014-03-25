@@ -25,6 +25,7 @@ BOOL _debug = NO;
     if( (self = [super init]) == nil )
         return nil;
     
+    self.allShowtimes = [NSMutableArray array];
     for ( NSDictionary *showtimeTuple in jsonArray ) {
         Showtime *showtime = [[Showtime alloc] initWithDictionary: showtimeTuple];
         if( _debug) [showtime print];
@@ -35,9 +36,22 @@ BOOL _debug = NO;
 
 -(NSArray *) showtimeForMovie: (NSString *) movieName atTheater: (NSString *) theaterName;
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"movieName = \"%@\" and theaterName = \"%@\"", movieName, theaterName];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"movieName = %@ and theaterName = %@", movieName, theaterName];
     NSArray *showtimes = [self.allShowtimes filteredArrayUsingPredicate:predicate];
     return showtimes;
+}
+
+-(NSString *) showtimeStringForMovie: (NSString *) movieName atTheater: (NSString *) theaterName {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"movieName = %@ and theaterName = %@", movieName, theaterName];
+    NSArray *showtimes = [self.allShowtimes filteredArrayUsingPredicate:predicate];
+    
+    NSLog(@"showtimes: %@", showtimes);
+    
+    NSMutableArray *allTimeStrings = [NSMutableArray array];
+    for (Showtime *st in showtimes) {
+        [allTimeStrings addObject:st.timeString];
+    }
+    return [allTimeStrings componentsJoinedByString:@", "];
 }
 
 -(void) print

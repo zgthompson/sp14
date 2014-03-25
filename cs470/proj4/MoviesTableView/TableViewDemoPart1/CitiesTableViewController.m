@@ -8,11 +8,14 @@
 
 #import "CitiesTableViewController.h"
 #import "SchemaDataSource.h"
+#import "MoviesAtTheaterTableViewController.h"
 
 @interface CitiesTableViewController ()
 
 @property (nonatomic) SchemaDataSource *dataSource;
 @property (nonatomic) CitiesDataSource *citiesDataSource;
+@property (nonatomic) TheatersDataSource *theatersDataSource;
+@property (nonatomic) MoviesAtTheatersDataSrouce *matDataSource;
 @property (nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
@@ -25,7 +28,7 @@ static NSString *CellIdentifier = @"Cell";
 {
     self = [super initWithStyle:style];
     if (self) {
-        UIImage *tabImage = [UIImage imageNamed:@"cityTabBarImage.jpg"];
+        UIImage *tabImage = [UIImage imageNamed:@"cityTabBarImage.png"];
         self.tabBarItem.image = tabImage;
         self.title = @"City";
         [[SchemaDataSource sharedInstance] addObserver:self forKeyPath:@"dataSourceReady" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -42,7 +45,7 @@ static NSString *CellIdentifier = @"Cell";
     self.dataSource = [SchemaDataSource sharedInstance];
     
     self.refreshControl = [UIRefreshControl new];
-    [self.refreshControl addTarget:self action:@selector(refrechTableView:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(refreshTableView:) forControlEvents:UIControlEventValueChanged];
     
     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.activityIndicator setCenter:self.view.center];
@@ -58,6 +61,8 @@ static NSString *CellIdentifier = @"Cell";
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     self.citiesDataSource = [[SchemaDataSource sharedInstance] citiesDataSource];
+    self.theatersDataSource = [[SchemaDataSource sharedInstance] theatersDataSource];
+    self.matDataSource = [[SchemaDataSource sharedInstance] moviesAtTheatersDataSource];
     [self.tableView reloadData];
     [self.activityIndicator stopAnimating];
 }
@@ -80,18 +85,41 @@ static NSString *CellIdentifier = @"Cell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
+    NSString* cityName = [[self.citiesDataSource cityAtIndex:section] cityName];
+    return [self.theatersDataSource numberOfTheatersForCity:cityName];
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if( section == 0 )
+        return 100;
     return 0;
+}
+
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[self.citiesDataSource cityAtIndex:section] cityName];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
+    NSString* cityName = [[self.citiesDataSource cityAtIndex:[indexPath section]] cityName];
+    Theater* theater = [self.theatersDataSource theaterAtIndex:[indexPath row] forCity:cityName];
+    cell.textLabel.text = [theater theaterName];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString* cityName = [[self.citiesDataSource cityAtIndex:[indexPath section]] cityName];
+    NSString* theaterName = [[self.theatersDataSource theaterAtIndex:[indexPath row] forCity:cityName] theaterName];
+    
+    NSArray* movies = [self.matDataSource moviesForTheater:theaterName inCity:cityName];
+    
+    MoviesAtTheaterTableViewController *matc = [[MoviesAtTheaterTableViewController alloc] initWithStyle:UITableViewStylePlain andMovies:movies];
+    [self.navigationController pushViewController:matc animated:YES];
 }
 
 /*

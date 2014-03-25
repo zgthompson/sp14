@@ -14,6 +14,7 @@
 
 -(instancetype) initWithJSONArray:(NSArray *)jsonArray;
 -(NSArray *) showtimeForMovie: (NSString *) movieName atTheater: (NSString *) theaterName;
+-(NSString *) showtimeStringForMovie: (NSString *) movieName atTheater: (NSString *) theaterName;
 -(void) print;
 
 @end

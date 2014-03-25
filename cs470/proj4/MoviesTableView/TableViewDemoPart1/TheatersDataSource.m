@@ -14,6 +14,7 @@ static BOOL _debug = NO;
 @interface TheatersDataSource ()
 
 @property(nonatomic) NSMutableArray *allTheaters;
+@property (nonatomic) NSMutableDictionary *theatersByCity;
 
 @end
 
@@ -30,6 +31,18 @@ static BOOL _debug = NO;
         if( _debug) [theater print];
         [self.allTheaters addObject: theater];
     }
+    
+    _theatersByCity = [[NSMutableDictionary alloc] init];
+    for ( Theater *theater in self.allTheaters) {
+        NSMutableArray* curArray = [self.theatersByCity objectForKey:theater.cityName];
+        if (curArray) {
+            [curArray addObject:theater];
+        }
+        else {
+            [self.theatersByCity setObject:[[NSMutableArray alloc] initWithObjects:theater, nil] forKey:theater.cityName];
+        }
+    }
+    
     return self;
 }
 
@@ -39,6 +52,21 @@ static BOOL _debug = NO;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"theaterName = %@", theaterName];
     NSArray *theater = [self.allTheaters filteredArrayUsingPredicate:predicate];
     return [theater count] == 0 ? nil : [theater objectAtIndex: 0];    
+}
+
+-(NSArray *) theatersWithCityName:(NSString *) cityName
+{
+    return [self.theatersByCity valueForKey:cityName];
+}
+
+-(int) numberOfTheatersForCity:(NSString *)cityName
+{
+    return [[self.theatersByCity valueForKey:cityName] count];
+}
+
+-(Theater *) theaterAtIndex:(int) index forCity:(NSString *)cityName
+{
+    return [[self.theatersByCity valueForKey:cityName] objectAtIndex:index];
 }
 
 -(NSArray *) getAllTheaters

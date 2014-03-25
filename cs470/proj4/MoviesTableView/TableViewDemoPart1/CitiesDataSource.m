@@ -41,4 +41,9 @@
     return [self.allCities count];
 }
 
+-(City *) cityAtIndex:(int)index
+{
+    return [self.allCities objectAtIndex:index];
+}
+
 @end

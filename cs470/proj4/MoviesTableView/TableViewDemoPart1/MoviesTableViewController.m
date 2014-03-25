@@ -68,6 +68,7 @@ static NSString *CellIdentifier = @"Cell";
 {
     self.moviesDataSource = [[SchemaDataSource sharedInstance] moviesDataSource];
     [self.tableView reloadData];
+    [self.activityIndicator stopAnimating];
     if( _debug ) NSLog(@"Observer called.");
 }
 
