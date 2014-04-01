@@ -1,0 +1,21 @@
+learning_rate = .25, samples per epoch = 1000
+Epoch 1: Average correct = 0.918563
+Epoch 2: Average correct = 0.947505
+Epoch 3: Average correct = 0.953320
+Epoch 4: Average correct = 0.956748
+Epoch 5: Average correct = 0.959777
+Epoch 6: Average correct = 0.962583
+Epoch 7: Average correct = 0.961942
+Epoch 8: Average correct = 0.961379
+Epoch 9: Average correct = 0.962864
+Epoch 10: Average correct = 0.962718
+Epoch 11: Average correct = 0.964650
+Epoch 12: Average correct = 0.964495
+Epoch 13: Average correct = 0.964505
+Epoch 14: Average correct = 0.965990
+Epoch 15: Average correct = 0.964175
+Epoch 16: Average correct = 0.964689
+Epoch 17: Average correct = 0.966107
+Epoch 18: Average correct = 0.965301
+Epoch 19: Average correct = 0.966117
+Epoch 20: Average correct = 0.964883
